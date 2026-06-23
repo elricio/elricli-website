@@ -97,25 +97,39 @@ const currentPath = Astro.url.pathname;
   const sun = document.getElementById('sun-icon');
   const moon = document.getElementById('moon-icon');
   const toggle = document.getElementById('theme-toggle');
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-  function setTheme(dark) {
+  function applyTheme(dark) {
     document.documentElement.classList.toggle('dark', dark);
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
     if (sun && moon) {
       sun.classList.toggle('hidden', !dark);
       moon.classList.toggle('hidden', dark);
     }
   }
 
+  // 监听系统主题变化（仅在无手动设置时生效）
+  mediaQuery.addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches);
+    }
+  });
+
   if (toggle && sun && moon) {
     // 初始化图标状态
-    const isDark = document.documentElement.classList.contains('dark');
-    sun.classList.toggle('hidden', !isDark);
-    moon.classList.toggle('hidden', isDark);
+    applyTheme(document.documentElement.classList.contains('dark'));
 
     toggle.addEventListener('click', () => {
-      const dark = !document.documentElement.classList.contains('dark');
-      setTheme(dark);
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        // 有手动设置 → 清除，回到跟随系统
+        localStorage.removeItem('theme');
+        applyTheme(mediaQuery.matches);
+      } else {
+        // 无手动设置 → 保存当前相反值（手动覆盖）
+        const dark = !document.documentElement.classList.contains('dark');
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        applyTheme(dark);
+      }
     });
   }
 
