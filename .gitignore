@@ -3,22 +3,218 @@ dist/
 # generated types
 .astro/
 
-# dependencies
+# 依赖
 node_modules/
+# 注意：package-lock.json、yarn.lock、pnpm-lock.yaml 不应忽略，需要提交到仓库保证团队依赖一致
 
-# logs
+# 构建产物
+dist/
+dist-*/
+# 多环境构建输出
+test1/
+test2/
+test3/
+sim/
+uat/
+prod/
+
+# 本地环境变量（只忽略包含敏感信息的 .local 文件）
+.env.local
+.env.*.local
+# 注意：.env.test、.env.uat 等非敏感环境配置文件应该提交到仓库
+
+# 日志文件
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
+# 编辑器和 IDE
 .idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 测试覆盖率
+coverage/
+*.lcov
+.nyc_output/
+
+# 缓存
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+
+# vite 相关（如果未来迁移到 Vite）
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Vue CLI 相关
+vue.config.js.backup
+
+# PDF 和文档生成临时文件
+*.pdf.tmp
+
+# AI 编程工具相关文件
+
+# ═══════════════════════════════════════════════════════
+# Claude Code
+# ═══════════════════════════════════════════════════════
+# 应该提交（团队共享）：
+# - .claude/settings.json (团队权限、hooks 配置)
+# - CLAUDE.md (项目指引文件)
+# 应该忽略（个人/敏感）：
+.claude/settings.local.json
+.claude/settings.local.json.bak
+.claude/plans/
+.claude/memory/
+.claude/scheduled_tasks.json
+.claude/agents/*.local.md
+.claude/snapshots/
+.claude/worktrees/
+.claude/mcpserver/
+*.claude.md
+
+# ═══════════════════════════════════════════════════════
+# Cursor AI
+# ═══════════════════════════════════════════════════════
+# 应该提交（团队共享）：
+# - .cursor/rules/ (团队规则)
+# - .cursorrules (项目规则文件)
+# - .cursor/mcp.json (MCP 配置，密钥用环境变量)
+# 应该忽略（个人/敏感）：
+.cursor/mcp.json.local
+.cursor/mcp-servers.json
+.cursorignore.local
+.cursor/chat-history/
+.cursor/cache/
+
+# ═══════════════════════════════════════════════════════
+# GitHub Copilot
+# ═══════════════════════════════════════════════════════
+# ⚠️ 不要忽略 .github/ 目录，否则 Copilot 无法读取指令
+# 应该提交（团队共享）：
+# - .github/copilot-instructions.md (仓库指令)
+# - .github/instructions/*.instructions.md (路径特定指令)
+# - AGENTS.md、CLAUDE.md、GEMINI.md (Agent 指令)
+# 应该忽略（个人/敏感）：
+.github/copilot/chat-history/
+.github/copilot/suggestions-cache/
+
+# ═══════════════════════════════════════════════════════
+# Trae AI
+# ═══════════════════════════════════════════════════════
+# 应该提交（团队共享）：
+# - .trae/rules/ (项目规则)
+# - .trae/settings.json (团队配置)
+# 应该忽略（个人/敏感）：
+.trae/settings.local.json
+.trae/cache/
+.trae/chat-history/
+
+# ═══════════════════════════════════════════════════════
+# OpenCode
+# ═══════════════════════════════════════════════════════
+# 应该提交（团队共享）：
+# - opencode.json (项目配置)
+# - .opencode/agents/ (Agents)
+# - .opencode/skills/ (Skills)
+# - .opencode/commands/ (Commands)
+# 应该忽略（个人/敏感）：
+.opencode/runtime/
+.opencode/cache/
+.opencode/secrets.json
+.opencode/*.local.json
+
+# ═══════════════════════════════════════════════════════
+# 其他 AI 编程工具
+# ═══════════════════════════════════════════════════════
+# Codeium
+.codeium/chat-history/
+.codeium/cache/
+
+# Continue (continue.dev)
+.continue/sessions/
+.continue/cache/
+
+# Tabnine
+.tabnine/chat-history/
+.tabnine/models/
+
+# Sourcegraph Cody
+.cody/chat-history/
+.cody/cache/
+
+# Amazon CodeWhisperer
+.codewhisperer/history/
+
+# JetBrains AI
+.idea/ai/chat-history/
+.idea/ai/cache/
+
+# Windsurf
+.windsurf/chat-history/
+.windsurf/cache/
+
+# Kiro
+.kiro/cache/
+.kiro/sessions/
+
+# ═══════════════════════════════════════════════════════
+# MCP (Model Context Protocol) 相关文件
+# ═══════════════════════════════════════════════════════
+.playwright-mcp/
+.mcp/cache/
+.mcp/logs/
+.mcp/secrets.json
+
+# ═══════════════════════════════════════════════════════
+# 其他 AI 生成的临时文件
+# ═══════════════════════════════════════════════════════
+*.ai-generated
+*.ai-suggestion
+*.ai-assist
+*.local.json
+**/.ai/
+**/.llm/
+.omo/
+
+# 打包分析报告
+report.html
+stats.html
+
+# 其他
+*.local
+ccai查询客源信息接口文档.md
+ClaudeCode实战分享.pptx
