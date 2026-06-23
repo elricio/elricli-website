@@ -7,23 +7,34 @@
     "demo": "https://elricli.com"
   },
   {
-    "title": "组件库 Starter",
-    "description": "一套用于快速搭建中后台系统的 React 组件库模板，包含按钮、表单、表格等基础组件和文档站点。",
-    "tags": ["React", "TypeScript", "Storybook"],
-    "github": "https://github.com/elricio/ui-starter",
-    "demo": "https://ui-starter.elricli.com"
+    "title": "在线简历",
+    "description": "个人在线简历应用，使用 TypeScript 开发，展示工作经历、技能与项目成果，支持在线预览与打印。",
+    "tags": ["TypeScript", "HTML", "CSS"],
+    "github": "https://github.com/elricio/resume",
+    "demo": "https://www.elricli.com/resume"
   },
   {
-    "title": "任务管理工具",
-    "description": "一个支持看板视图和标签过滤的轻量级任务管理应用，数据存储在本地 IndexedDB。",
-    "tags": ["Vue 3", "Pinia", "IndexedDB"],
-    "github": "https://github.com/elricio/task-board",
-    "demo": "https://tasks.elricli.com"
+    "title": "Vue 后台管理系统",
+    "description": "基于 Vue 2 + Element UI 的后台管理系统，包含权限管理、数据表格、表单处理、图表展示等常见中后台功能模块。",
+    "tags": ["Vue", "Element UI", "JavaScript"],
+    "github": "https://github.com/elricio/vue2-manage"
   },
   {
-    "title": "API 请求封装",
-    "description": "为团队项目封装的 TypeScript HTTP 客户端，支持请求拦截、自动重试、错误处理和类型推导。",
-    "tags": ["TypeScript", "Fetch", "OpenAPI"],
-    "github": "https://github.com/elricio/http-client"
+    "title": "Demo 示例集",
+    "description": "平时随手写的一些小 demo，涵盖前端技术探索、组件实验、API 调试等各类尝试。",
+    "tags": ["JavaScript", "HTML", "CSS"],
+    "github": "https://github.com/elricio/littleDemo"
+  },
+  {
+    "title": "天气预报小程序",
+    "description": "基于微信小程序的天气应用，支持实时天气查询、多城市切换，界面清晰简洁。",
+    "tags": ["JavaScript", "微信小程序"],
+    "github": "https://github.com/elricio/shanxi-weather"
+  },
+  {
+    "title": "Vue PDF 查看器",
+    "description": "基于 Vue.js 的 PDF 文件在线查看组件，支持翻页、缩放等基础阅读功能。",
+    "tags": ["Vue", "JavaScript", "PDF"],
+    "github": "https://github.com/elricio/vue-pdf"
   }
 ]
