@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import projects from '../content/projects.json';
+---
+
+<Layout title="项目 | Elric Li" description="Elric Li 的项目作品集，涵盖前端工具、Web 应用与开源项目。">
+  <Header />
+
+  <main class="mx-auto max-w-5xl px-6 py-16 md:py-24">
+    <h1 class="mb-4 text-3xl font-bold md:text-4xl">项目</h1>
+    <p class="mb-10 max-w-2xl text-slate-600 dark:text-slate-300">
+      以下是我近期参与或独立开发的部分项目，涵盖工具库、Web 应用和开源贡献。
+    </p>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => <ProjectCard {...project} />)}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

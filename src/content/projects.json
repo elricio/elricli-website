@@ -1,0 +1,29 @@
+[
+  {
+    "title": "个人主页",
+    "description": "基于 Astro + Tailwind CSS 构建的静态个人站点，部署在 Cloudflare Pages，包含博客、项目展示和联系方式。",
+    "tags": ["Astro", "Tailwind CSS", "Cloudflare Pages"],
+    "github": "https://github.com/elricli/elricli-website",
+    "demo": "https://elricli.com"
+  },
+  {
+    "title": "组件库 Starter",
+    "description": "一套用于快速搭建中后台系统的 React 组件库模板，包含按钮、表单、表格等基础组件和文档站点。",
+    "tags": ["React", "TypeScript", "Storybook"],
+    "github": "https://github.com/elricli/ui-starter",
+    "demo": "https://ui-starter.elricli.com"
+  },
+  {
+    "title": "任务管理工具",
+    "description": "一个支持看板视图和标签过滤的轻量级任务管理应用，数据存储在本地 IndexedDB。",
+    "tags": ["Vue 3", "Pinia", "IndexedDB"],
+    "github": "https://github.com/elricli/task-board",
+    "demo": "https://tasks.elricli.com"
+  },
+  {
+    "title": "API 请求封装",
+    "description": "为团队项目封装的 TypeScript HTTP 客户端，支持请求拦截、自动重试、错误处理和类型推导。",
+    "tags": ["TypeScript", "Fetch", "OpenAPI"],
+    "github": "https://github.com/elricli/http-client"
+  }
+]

@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="博客 | Elric Li" description="Elric Li 的技术博客，记录前端开发、工程化与项目复盘。">
+  <Header />
+
+  <main class="mx-auto max-w-5xl px-6 py-16 md:py-24">
+    <h1 class="mb-4 text-3xl font-bold md:text-4xl">博客</h1>
+    <p class="mb-10 max-w-2xl text-slate-600 dark:text-slate-300">
+      记录技术思考、学习笔记和项目复盘。内容主要围绕前端工程化、性能优化与产品设计。
+    </p>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => <BlogCard post={post} />)}
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

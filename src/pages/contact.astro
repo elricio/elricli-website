@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const socialLinks = [
+  {
+    name: 'GitHub',
+    href: 'https://github.com/elricli',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/in/elricli',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>`
+  },
+  {
+    name: 'Twitter / X',
+    href: 'https://twitter.com/elricli',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>`
+  }
+];
+---
+
+<Layout title="联系我 | Elric Li" description="通过邮件或社交媒体联系前端开发工程师 Elric Li。">
+  <Header />
+
+  <main class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="mb-4 text-3xl font-bold md:text-4xl">联系我</h1>
+    <p class="mb-10 text-slate-600 dark:text-slate-300">
+      有项目合作、技术交流或工作机会？欢迎通过以下方式联系我。
+    </p>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <a
+        href="mailto:hi@elricli.com"
+        class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+      >
+        <div class="rounded-lg bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="font-semibold">邮箱</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400">hi@elricli.com</div>
+        </div>
+      </a>
+
+      {
+        socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+          >
+            <div class="rounded-lg bg-indigo-50 p-3 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400" set:html={link.icon} />
+            <div>
+              <div class="font-semibold">{link.name}</div>
+              <div class="text-sm text-slate-500 dark:text-slate-400">{link.href.replace('https://', '')}</div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

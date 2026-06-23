@@ -1,0 +1,59 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={`${post.data.title} | Elric Li`} description={post.data.description}>
+  <Header />
+
+  <main class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <article>
+      <header class="mb-10">
+        <time class="text-sm font-medium text-slate-500 dark:text-slate-400">
+          {post.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <h1 class="mb-4 mt-2 text-3xl font-bold md:text-4xl">{post.data.title}</h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300">{post.data.description}</p>
+
+        {
+          post.data.tags && (
+            <div class="mt-4 flex flex-wrap gap-2">
+              {post.data.tags.map((tag) => (
+                <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
+      </header>
+
+      <Content />
+    </article>
+
+    <div class="mt-12">
+      <a href="/blog" class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+        &larr; 返回博客列表
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
