@@ -8,6 +8,10 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const tags = Array.from(
+  new Set(posts.flatMap((post) => post.data.tags ?? []))
+).sort((a, b) => a.localeCompare(b, 'zh-CN'));
 ---
 
 <Layout title="博客 | Elric Li" description="Elric Li 的技术博客，记录前端开发、工程化与项目复盘。">
@@ -15,14 +19,97 @@ const posts = (await getCollection('blog')).sort(
 
   <main class="mx-auto max-w-5xl px-6 py-16 md:py-24">
     <h1 class="mb-4 text-3xl font-bold md:text-4xl">博客</h1>
-    <p class="mb-10 max-w-2xl text-slate-600 dark:text-slate-300">
+    <p class="mb-6 max-w-2xl text-slate-600 dark:text-slate-300">
       记录技术思考、学习笔记和项目复盘。内容主要围绕前端工程化、性能优化与产品设计。
     </p>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mb-10 flex flex-wrap gap-2" id="tag-filter">
+      <a
+        href="/blog"
+        data-tag=""
+        class="tag-pill rounded-full px-3 py-1 text-sm font-medium transition-colors bg-indigo-600 text-white dark:bg-indigo-500"
+      >
+        全部
+      </a>
+      {
+        tags.map((tag) => (
+          <a
+            href={`/blog?tag=${encodeURIComponent(tag)}`}
+            data-tag={tag}
+            class="tag-pill rounded-full px-3 py-1 text-sm font-medium transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+          >
+            {tag}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="post-grid">
       {posts.map((post) => <BlogCard post={post} />)}
     </div>
+
+    <p id="empty-state" class="hidden text-slate-600 dark:text-slate-400">
+      没有找到匹配该标签的文章。
+    </p>
   </main>
 
   <Footer />
 </Layout>
+
+<script>
+  function applyFilter() {
+    const params = new URLSearchParams(window.location.search);
+    const currentTag = params.get('tag');
+
+    const pills = document.querySelectorAll<HTMLElement>('#tag-filter .tag-pill');
+    const cards = document.querySelectorAll<HTMLElement>('#post-grid .blog-card');
+    const emptyState = document.getElementById('empty-state');
+    const grid = document.getElementById('post-grid');
+
+    let visibleCount = 0;
+
+    cards.forEach((card) => {
+      const tags = JSON.parse(card.dataset.tags ?? '[]') as string[];
+      const visible = !currentTag || tags.includes(currentTag);
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
+    });
+
+    const activeClasses =
+      'tag-pill rounded-full px-3 py-1 text-sm font-medium transition-colors bg-indigo-600 text-white dark:bg-indigo-500';
+    const inactiveClasses =
+      'tag-pill rounded-full px-3 py-1 text-sm font-medium transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700';
+
+    pills.forEach((pill) => {
+      const tag = pill.dataset.tag ?? '';
+      pill.className = tag === (currentTag ?? '') ? activeClasses : inactiveClasses;
+    });
+
+    if (grid) grid.classList.toggle('hidden', visibleCount === 0);
+    if (emptyState) emptyState.classList.toggle('hidden', visibleCount > 0);
+  }
+
+  applyFilter();
+  window.addEventListener('popstate', applyFilter);
+
+  function activateTag(tag: string) {
+    const url = tag ? `/blog?tag=${encodeURIComponent(tag)}` : '/blog';
+    history.pushState(null, '', url);
+    applyFilter();
+  }
+
+  document.getElementById('tag-filter')?.addEventListener('click', (event) => {
+    const pill = (event.target as HTMLElement).closest<HTMLElement>('.tag-pill');
+    if (!pill) return;
+    event.preventDefault();
+    activateTag(pill.dataset.tag ?? '');
+  });
+
+  document.getElementById('post-grid')?.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLElement>('.post-tag');
+    if (!link) return;
+    event.preventDefault();
+    const tag = link.dataset.tag ?? '';
+    activateTag(tag);
+  });
+</script>
